@@ -22,15 +22,16 @@
   .logo-img {
     background-image: url("~logo.png");
     background-repeat: no-repeat;
-    height: 56px;
-    width: 180px;
+    height: 200px;
+    width: 130px;
     background-size: 160px;
-    background-size: 180px!important;
+    background-size: 130px!important;
   }
   
   .form-control {
     border: 1px solid #dcdfe6;
     font-size: inherit;
+    margin-bottom: 10px;
   }
   
   .devise-link {

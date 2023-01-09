@@ -1,18 +1,25 @@
 <nav class="navbar navbar-expand-lg navbar-light">
-  <div class="container">
+  <div class="container-fluid">
     <%= link_to "", root_path, class: "navbar__brand navbar__mainLogo" %>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-md-auto align-items-center">
-        <li>
-          <%= link_to "投稿", "#", class: "btn btn-primary" %>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <%= link_to "投稿", new_post_path,class: "nav-link active" %>
         </li>
-        <li>
-          <%= link_to "", "#", class: "nav-link commonNavIcon profile-icon" %>
+        <li class="nav-item">
+          <%= link_to "マイページ編集", user_path(current_user), class: "nav-link active" %>
         </li>
+        <div class="offcanvas-header">
+          <%= link_to "サインアウト", destroy_user_session_path, method: :delete, class: "nav-link active" %>
+        </div>
       </ul>
+      <%= form_with(url: "#", local: true, method: :get, class: "d-flex") do |form| %>
+        <%= form.text_field :keyword, placeholder: "キーワードを入力", id: 'Search_Form', class: "form-control me-2 mb-0" %>
+        <%= form.submit "検索", class: "btn btn-outline-success",type: "submit" %>
+      <% end %>
     </div>
   </div>
 </nav>

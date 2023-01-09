@@ -14,6 +14,12 @@
           <%= f.text_field :name, autofocus: true, placeholder: "フルネーム", class: "form-control" %>
         </div>
 
+        <%# ========== ここから追加する ========== %>
+        <div class="form-group">
+          <%= f.text_field :username, autofocus: true, placeholder: "ユーザーネーム", class: "form-control" %>
+        </div>
+        <%# ========== ここまで追加する ========== %>
+
         <div class="form-group">
           <%= f.password_field :password, autocomplete: "off", placeholder: "パスワード", class: "form-control" %>
         </div>
@@ -31,7 +37,7 @@
 
       <p class="devise-link">
         アカウントをお持ちですか？
-        <%= link_to "サインインする", new_user_session_path %>
+        <%= link_to "ログインする", new_user_session_path %>
       </p>
     </div>
   </div>

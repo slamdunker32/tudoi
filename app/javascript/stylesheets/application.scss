@@ -2,7 +2,11 @@
 
 @import "layouts/navbar";
 
-/* ===ここから追加する=== */
 @import "common";
+
 @import "users/devise";
-/* ===ここまで追加する=== */
+@import "users/show";
+@import "users/edit";
+
+/* ここの行を追加する */
+@import "posts";
