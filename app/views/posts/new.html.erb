@@ -6,6 +6,9 @@
       </div>
       <div class="card-body">
         <%= form_with model: @post, class: "upload-images p-0 border-0" do |f| %>
+          <div>
+            <%= f.text_field :subject, class: "form-control border-0", placeholder: "教科名を書く" %>
+          </div>
           <div class="form-group row mt-2">
             <div class="col-auto pr-0">
               <%= image_tag avatar_url(current_user), class: "post-profile-icon" %>

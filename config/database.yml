@@ -5,21 +5,28 @@
 #   gem 'sqlite3'
 #
 default: &default
-  adapter: sqlite3
+  adapter: postgresql
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
+  username: yuya
+  password: password
+  host: localhost
 
 development:
   <<: *default
-  database: db/development.sqlite3
+  port: 5432
+  database: yuya_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: db/test.sqlite3
+  database: yuya_test
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  url: <%= ENV['DATABASE_URL'] %>
+  database: yuya_production
+  username: yuya
+  password: <%= ENV['MYSITE_DATABASE_PASSWORD'] %>
