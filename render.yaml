@@ -1,6 +1,6 @@
 databases:
   - name: postgres
-    user: yuya
+    inAllowList: []
 
 services:
   - type: web
