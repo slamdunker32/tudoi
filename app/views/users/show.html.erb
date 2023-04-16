@@ -1,19 +1,12 @@
 <div class="profile-wrap">
   <div class="row">
-    <div class="col-md-4 text-center">
-      <%= image_tag avatar_url(@user), class: "round-img" %>
-    </div>
     <div class="col-md-8">
       <div class="row">
         <h1><%= @user.name %></h1>
 
-        <%# ===この行を追加する=== %>
         <% if @user == current_user %>
-
           <%= link_to "プロフィールを編集", edit_user_registration_path, class: "btn btn-outline-dark edit-profile-btn" %>
           <button type="button" class="setting" data-toggle="modal" data-target="#exampleModal"></button>
-
-        <%# ===この行を追加する=== %>
         <% end %>
 
 
@@ -35,10 +28,105 @@
         </div>
       </div>
       <div class="row">
-        <p>
-          <%= @user.email %>
-        </p>
+        <% if @user == current_user %>
+          <p>
+            <%= @user.email %>
+          </p>
+        <% end %>
       </div>
     </div>
   </div>
 </div>
+<div class="btn-group w-100" role="group" aria-label="Basic example">
+  <%= link_to '新しい順', posts_path(sort: "latest", page: params[:page]), class: "btn btn-success" %>
+  <%= link_to '人気順', posts_path(sort: "toplike", page: params[:page]), class: "btn btn-success" %>
+</div>
+<% @posts.each do |post| %>
+  <div class="col-md-8 col-md-2 mx-auto">
+    <div class="card-wrap">
+      <div class="card">
+        <div class="card-header align-items-center d-flex">
+           <%= link_to user_path(post.user), class: "black-color no-text-decoration me-2",title: post.user.name do %>
+            <strong><%= post.user.name %></strong>
+           <% end %>
+            <div class="d-inline  no-text-decoration me-2"><%= post.subject.title %></div>
+            <% if post.user_id == current_user.id %>
+              <%= link_to post_path(post), method: :delete, class: "mr-auto my-auto" do %>
+                <div class="delete-post-icon"></div>
+              <% end %>
+            <% end %>
+        </div>
+
+        <% if post.images.count != 0 %>
+          <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <% post.images.each_with_index do |image, index| %>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="<%= index %>" class="<%= 'active' if index.zero? %>" aria-current="<%= index.zero? %>" aria-label="Slide <%= index+1 %>"></button>
+              <% end %>
+            </div>
+            <div class="carousel-inner">
+              <% post.images.each_with_index do |image, index| %>
+                <div class="carousel-item <%= 'active' if index.zero? %>">
+                  <%= link_to(image_tag(image.to_s), post_path(post)) %>
+                </div>
+              <% end %>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        <% end %>
+
+        <div class="card-body">
+          <div class="row parts">
+            <div id="like-icon-post-<%= post.id.to_s %>">
+              <% if post.liked_by(current_user).present? %>
+                <%= link_to "いいねを取り消す", post_like_path(post.id, post.liked_by(current_user)), method: :DELETE, remote: true, class: "loved hide-text" %>
+              <% else %>
+                <%= link_to "いいね", post_likes_path(post), method: :POST, remote: true, class: "love hide-text" %>
+              <% end %>
+            </div>
+          </div>
+
+          <div id="like-text-post-<%= post.id.to_s %>">
+            <%= render "like_text", { likes: post.likes } %>
+          </div>
+
+            <div>
+              <span><strong><%= post.user.name %></strong></span>
+              <span><%= post.caption %></span>
+              <%= link_to time_ago_in_words(post.created_at).upcase + "前", post_path(post), class: "post-time no-text-decoration" %>
+              
+              <div id="comment-post-<%= post.id.to_s %>">
+                <%= render 'comment_list', { post: post } %>
+              </div>
+              <%= link_to time_ago_in_words(post.created_at).upcase + "前", post_path(post),
+                class: "light-color post-time no-text-decoration" %>
+              <hr>
+              <div class="row actions" id="comment-form-post-<%= post.id.to_s %>">
+                <%= form_with model: [post, Comment.new], class: "w-100 d-flex", data: {remote: true} do |f| %>
+                  <%= f.hidden_field :user_id, value: current_user.id %>
+                  <%= f.hidden_field :post_id, value: post.id %>
+                  <%= f.text_field :comment, class: "form-control comment-input border-0", placeholder: "コメント ...", autocomplete: :off %>
+                  <%= f.button class: "custom-btn ml-2" do %>
+                    <i class="fa-brands fa-battle-net fa-2xl"></i>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+            
+           </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+<%= paginate @posts %>
+
+

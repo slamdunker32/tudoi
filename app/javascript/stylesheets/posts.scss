@@ -89,7 +89,6 @@
     background-size: 20px !important;
     color: #262626;
     font-size: 20px;
-    display: inline-block;
   }
 
   .loved {
@@ -120,4 +119,26 @@
   .child {
     display: flex;
     align-items: center;
+  }
+
+  .carousel-item img {
+    width: 100%;
+    height: auto;
+  }
+
+  .custom-btn {
+    background-color: #ffffff;
+    border: none;
+    color: rgb(108, 108, 108);
+    margin-bottom: 10px;
+    margin-left: 5px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 10px;
+  }
+  
+  .custom-btn:hover {
+    background-color: #ffffff;
+    color: rgb(0, 122, 27);
+    text-decoration: none;
   }

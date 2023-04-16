@@ -6,10 +6,10 @@
       </div>
       <div class="card-body">
         <%= form_with model: @post, class: "upload-images p-0 border-0" do |f| %>
-          <div>
-            <%= f.text_field :subject, class: "form-control border-0", placeholder: "教科名を書く" %>
+          <div class="form-group mt-2 mb-4">
+            <%= f.select :subject_id, [ ['英語', 1], ['数学IAⅡB', 2], ['数学Ⅲ', 3], ['現代文', 4], ['古文・漢文', 5], ['日本史', 6], ['世界史', 7], ['地理', 8], ['公民', 9], ['物理', 10], ['化学', 11], ['生物', 12], ['その他', 13]], {include_blank: "教科名を選択してください"}, {class: "form-control"} %>
           </div>
-          <div class="form-group row mt-2">
+          <div class="form-group row mt-2 mb-4">
             <div class="col-auto pr-0">
               <%= image_tag avatar_url(current_user), class: "post-profile-icon" %>
             </div>
@@ -18,14 +18,10 @@
             </div>
           </div>
           <div class="mb-3">
-
-            <%= f.fields_for :photos do |i| %>
-              <%= i.file_field :image %>
-            <% end %>
+            <%= f.file_field :images, multiple: true, class: "form-control" %>
             <div class="col pl-0">
               <%= f.text_area :description, class: "form-control border-0", placeholder: "画像説明" %>
             </div>
-
           </div>
           <%= f.submit "投稿する", class: "btn btn-primary" %>
         <% end %>

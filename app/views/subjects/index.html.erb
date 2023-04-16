@@ -1,0 +1,25 @@
+<div class="d-flex flex-column align-items-center mt-3">
+  <div class="col-xl-5 col-lg-8 col-md-10 col-sm-11 col-11">
+    <% if @subjects.present? %>
+      <% @subjects.each do |subject| %>
+        <div class="my-4">
+          <h1 class="d-inline subject"><%= subject.title %></h1>
+          <button type="button" class="btn btn-success d-inline float-end">すべて見る</button>
+          <% if subject.posts.present? %>
+            <div class="list-group my-3">
+              <% subject.limited_posts(3).each do |post| %>
+                <% if post.caption.present? %>
+                  <%= link_to post.caption, post_path(post), class: 'list-group-item list-group-item-action' %>
+                <% end %>
+              <% end %>
+            </div>
+          <% else %>
+            <p>投稿がありません</p>
+          <% end %>
+        </div>
+      <% end %>
+    <% else %>
+      <p>投稿がありません</p>
+    <% end %>
+  </div>
+</div>

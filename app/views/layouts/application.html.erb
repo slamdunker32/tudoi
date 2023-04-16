@@ -8,33 +8,30 @@
     <%# ここの1行も追加 %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
 
-  <body>
-    <div id="wrapper">
-      <%= render 'partial/navbar' if current_user %>
-
-      <% if flash[:notice] %>
-        <div class="alert alert-info">
-          <%= flash[:notice] %>
-        </div>
-      <% end %>
-      <% if flash[:alert] %>
-        <div class="alert alert-danger">
-          <%= flash[:alert] %>
-        </div>
-      <% end %>
-
-      <%# ==========ここにcontainerクラスを追加する========== %>
-      <div class="container">
-        <%= yield %>
+<body>
+  <div id="wrapper">
+    <%= render 'partial/navbar' if current_user %>
+    <% if flash.now[:notice] %>
+      <div class="alert alert-info">
+        <%= flash.now[:notice] %>
       </div>
-      <%# ==========divの閉じタグを追加========== %>
+    <% end %>
 
-      <%= render 'partial/footer' %>
-    </div>
-  </body>
+    <% if flash.now[:alert] %>
+      <div class="alert alert-danger">
+        <%= flash.now[:alert] %>
+      </div>
+    <% end %>
+
+      <%= yield %>
+
+    <%= render 'partial/footer' %>
+  </div>
+</body>
 </html>

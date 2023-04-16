@@ -10,6 +10,14 @@ module Techpitgram
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
+    config.i18n.default_locale = :ja
+
+    # additional_pathsを追加
+    # config.additional_paths << Rails.root.join('lib').to_s
+    # config.additional_paths << Rails.root.join('app/services').to_s
+    # config.additional_paths << Rails.root.join('app/api').to_s
+    # config.additional_paths << Rails.root.join('app/views').to_s
+    # config.additional_paths << Rails.root.join('config', 'locales').to_s
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -18,18 +26,5 @@ module Techpitgram
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-  end
-
-  class Application < Rails::Application
-    # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.2
-
-    # この行を追加する
-    config.i18n.default_locale = :ja
-
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration can go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded after loading
-    # the framework and any gems in your application.
   end
 end

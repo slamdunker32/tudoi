@@ -1,12 +1,11 @@
 class Post < ApplicationRecord
     belongs_to :user
-    has_many :photos, dependent: :destroy
+    belongs_to :subject
     has_many :likes, dependent: :destroy
-  
-    # この行を追加する
     has_many :comments, dependent: :destroy
   
-    accepts_nested_attributes_for :photos
+    # validates :subject_id, presence: true
+    mount_uploaders :images, ImageUploader
   
     def liked_by(current_user)
       # user_idが一致するlikeを検索する

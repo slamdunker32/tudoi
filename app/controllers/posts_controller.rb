@@ -4,24 +4,39 @@ class PostsController < ApplicationController
   
     def new
       @post = Post.new
-      @post.photos.build
     end
   
     def create
       @post = Post.new(post_params)
-      if @post.photos.present?
-        @post.save
-        redirect_to root_path
+      if @post.save
         flash[:notice] = "投稿が保存されました"
-      else
         redirect_to root_path
-        flash[:alert] = "投稿に失敗しました"
+      else
+        flash.now[:alert] = "投稿に失敗しました"
+        render new_post_path
       end
     end
   
     def index
-      @posts = Post.limit(10).includes(:photos, :user).order('created_at DESC')
+      if params[:sort] == "toplike"
+        @posts = Post.left_joins(:likes)
+                     .group(:id)
+                     .order('COUNT(likes.post_id) DESC')
+                     .page(params[:page])
+                     .per(2)
+      elsif params[:sort] == "recent"
+        @posts = Post.includes(:user)
+                     .order('created_at DESC')
+                     .page(params[:page])
+                     .per(10)
+      else
+        @posts = Post.page(params[:page])
+                     .per(10)
+                     .includes(:user)
+                     .order('created_at DESC')
+      end
     end
+    
   
     def show
     end
@@ -34,14 +49,33 @@ class PostsController < ApplicationController
       end
       redirect_to root_path
     end
-  
-    private
-      def post_params
-        params.require(:post).permit(:subject, :caption, :description, photos_attributes: [:image]).merge(user_id: current_user.id)
-      end
 
-      def set_post
-        @post = Post.find_by(id: params[:id])
+    def search
+      if params[:search].blank?
+        @posts = []
+      else
+        search_condition = "%" + params[:search] + "%"
+        @posts = Post.joins(:subject).where("posts.description LIKE ? OR subjects.title LIKE ? OR caption ILIKE ?", search_condition, search_condition, search_condition).page(params[:page]).per(10)
       end
-  end
+      render :index
+    end
+    
+
+    def toplike
+      if params[:order] == "like"
+        @posts = Post.joins(:likes)
+                     .group("posts.id")
+                     .order('COUNT(likes.id) DESC')
+                     .limit(10)
+      end
+    end
   
+      private
+        def post_params
+          params.require(:post).permit(:subject_id, :caption, :description, {images: []}).merge(user_id: current_user.id)
+        end
+  
+        def set_post
+          @post = Post.find_by(id: params[:id])
+        end
+end  

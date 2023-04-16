@@ -7,6 +7,9 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
+          <%= link_to "ホーム", subjects_path,class: "nav-link active" %>
+        </li>
+        <li class="nav-item">
           <%= link_to "投稿", new_post_path,class: "nav-link active" %>
         </li>
         <li class="nav-item">
@@ -16,9 +19,9 @@
           <%= link_to "サインアウト", destroy_user_session_path, method: :delete, class: "nav-link active" %>
         </div>
       </ul>
-      <%= form_with(url: "#", local: true, method: :get, class: "d-flex") do |form| %>
-        <%= form.text_field :keyword, placeholder: "キーワードを入力", id: 'Search_Form', class: "form-control me-2 mb-0" %>
-        <%= form.submit "検索", class: "btn btn-outline-success",type: "submit" %>
+      <%= form_with url: posts_search_path,local: true, method: :get, class: "d-flex" do |form| %>
+        <%= form.text_field :search, value: params[:search], placeholder: "キーワードを入力", id: 'Search_Form', class: "form-control me-2 mb-0" %>
+        <%= form.submit "検索", class: "btn btn-outline-success", type: "submit" %>
       <% end %>
     </div>
   </div>

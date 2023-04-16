@@ -1,0 +1,17 @@
+.pagination {
+    justify-content: center;
+  }
+
+  .pagination li a, .pagination li span {
+    background-color: #28a745; /* 通常の緑色 */
+    color: white;
+  }
+  
+  .pagination li a:hover, .pagination li span:hover {
+    background-color: #218838; /* 濃い緑色 */
+  }
+  
+  .page-link  {
+  background-color: #28a745 !important;
+  border-color: #ffffff !important; /* 現在のページの背景色 */
+}
