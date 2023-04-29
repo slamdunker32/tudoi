@@ -93,6 +93,8 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    dockerfile-rails (1.2.5)
+      rails
     erubi (1.11.0)
     ffi (1.15.5)
     globalid (1.0.0)
@@ -144,6 +146,10 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     nio4r (2.5.8)
+    nokogiri (1.13.9-aarch64-linux)
+      racc (~> 1.4)
+    nokogiri (1.13.9-arm64-darwin)
+      racc (~> 1.4)
     nokogiri (1.13.9-x86_64-linux)
       racc (~> 1.4)
     orm_adapter (0.5.0)
@@ -254,6 +260,8 @@ GEM
     zeitwerk (2.6.6)
 
 PLATFORMS
+  aarch64-linux
+  arm64-darwin-22
   x86_64-linux
 
 DEPENDENCIES
@@ -262,6 +270,7 @@ DEPENDENCIES
   capybara (>= 3.26)
   carrierwave (~> 2.0)
   devise
+  dockerfile-rails (>= 1.2)
   jbuilder (~> 2.7)
   kaminari
   listen (~> 3.3)
