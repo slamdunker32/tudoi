@@ -14,6 +14,8 @@ class RegistrationsController < Devise::RegistrationsController
         respond_with resource, location: after_inactive_sign_up_path_for(resource)
       end
     else
+      # ユーザーの保存が失敗した場合にログにエラーメッセージを出力
+      logger.error "User registration failed: #{resource.errors.full_messages}"
       clean_up_passwords resource
       set_minimum_password_length
       respond_with resource
