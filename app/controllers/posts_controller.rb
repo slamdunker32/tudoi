@@ -18,22 +18,27 @@ class PostsController < ApplicationController
     end
   
     def index
-      if params[:sort] == "toplike"
-        @posts = Post.left_joins(:likes)
-                     .group(:id)
-                     .order('COUNT(likes.post_id) DESC')
-                     .page(params[:page])
-                     .per(2)
-      elsif params[:sort] == "recent"
-        @posts = Post.includes(:user)
-                     .order('created_at DESC')
-                     .page(params[:page])
-                     .per(10)
+      if params[:subject_id]
+        @subject = Subject.find(params[:subject_id])
+        @posts = @subject.posts.page(params[:page]).per(10)
       else
-        @posts = Post.page(params[:page])
-                     .per(10)
-                     .includes(:user)
-                     .order('created_at DESC')
+        if params[:sort] == "toplike"
+          @posts = Post.left_joins(:likes)
+                       .group(:id)
+                       .order('COUNT(likes.post_id) DESC')
+                       .page(params[:page])
+                       .per(2)
+        elsif params[:sort] == "recent"
+          @posts = Post.includes(:user)
+                       .order('created_at DESC')
+                       .page(params[:page])
+                       .per(10)
+        else
+          @posts = Post.page(params[:page])
+                       .per(10)
+                       .includes(:user)
+                       .order('created_at DESC')
+        end
       end
     end
     

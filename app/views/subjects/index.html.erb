@@ -4,7 +4,7 @@
       <% @subjects.each do |subject| %>
         <div class="my-4">
           <h1 class="d-inline subject"><%= subject.title %></h1>
-          <button type="button" class="btn btn-success d-inline float-end">すべて見る</button>
+          <%= link_to 'すべて見る', subject_posts_path(subject_id: subject.id), class: 'btn btn-success d-inline float-end' %>
           <% if subject.posts.present? %>
             <div class="list-group my-3">
               <% subject.limited_posts(3).each do |post| %>

@@ -6,8 +6,11 @@ Rails.application.routes.draw do
   root 'posts#index'
 
   get '/users/:id', to: 'users#show', as: 'user'
-  get '/subjects', to: 'subjects#index', as: 'subjects'
   get '/posts/search', to: 'posts#search', as: 'posts_search'
+
+  resources :subjects, only: [:index, :new] do
+    resources :posts, only: [:index]
+  end
 
   resources :posts, only: %i(index new create show destroy) do
     resources :likes, only: %i(create destroy)

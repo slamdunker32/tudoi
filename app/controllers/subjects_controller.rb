@@ -6,4 +6,10 @@ class SubjectsController < ApplicationController
                        .having('count(posts.id) <= 3 OR posts.id IS NULL')
                        .order("created_at ASC")
   end
+
+  def posts
+    @subject = Subject.find(params[:subject_id])
+    @posts = @subject.posts
+  end
+  
 end

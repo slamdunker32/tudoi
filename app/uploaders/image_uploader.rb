@@ -44,7 +44,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   # For images you might use something like this:
 
   # ここのコメントアウトを外す
-  def exteextension_allowlist
+  def extension_allowlist
     %w(jpg jpeg gif png)
   end
 
