@@ -27,17 +27,13 @@ RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential curl libpq-dev libvips node-gyp pkg-config python
 
 # Install JavaScript dependencies
-ARG NODE_VERSION=14.21.3
+ARG NODE_VERSION=14.0.0
 ARG YARN_VERSION=1.22.19
 ENV PATH=/usr/local/node/bin:$PATH
-ENV YARN_HOME=/usr/local/yarn
-ENV PATH=$YARN_HOME/bin:$PATH
 RUN curl -sL https://github.com/nodenv/node-build/archive/master.tar.gz | tar xz -C /tmp/ && \
     /tmp/node-build-master/bin/node-build "${NODE_VERSION}" /usr/local/node && \
     npm install -g yarn@$YARN_VERSION && \
-    ln -s /usr/local/node/lib/node_modules/yarn/bin/yarn /usr/local/bin/yarn && \
     rm -rf /tmp/node-build-master
-
 
 # Install application gems
 COPY --link Gemfile Gemfile.lock ./

@@ -1,16 +1,18 @@
-# fly.toml app configuration file generated for tudoi on 2023-04-29T02:53:44-07:00
+# fly.toml app configuration file generated for tudoi on 2023-05-21T15:38:47+09:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
 app = "tudoi"
 primary_region = "nrt"
+console_command = "/rails/bin/rails console"
 
 [http_service]
   internal_port = 3000
   force_https = true
   auto_stop_machines = true
   auto_start_machines = true
+  min_machines_running = 0
 
 [[statics]]
   guest_path = "/rails/public"
@@ -22,4 +24,3 @@ protocol = "tcp"
 [services.resources]
   cpu = 2
   memory = "4GB"
-
