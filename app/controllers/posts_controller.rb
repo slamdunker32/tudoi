@@ -12,10 +12,11 @@ class PostsController < ApplicationController
         flash[:notice] = "投稿が保存されました"
         redirect_to root_path
       else
-        flash.now[:alert] = "投稿に失敗しました"
+        flash.now[:alert] = "投稿に失敗しました: " + @post.errors.full_messages.join(", ")
         render new_post_path
       end
     end
+    
   
     def index
       if params[:subject_id]

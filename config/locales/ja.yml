@@ -95,3 +95,18 @@ ja:
       not_saved:
         one: "エラーが発生したため %{resource} は保存されませんでした:"
         other: "%{count} 件のエラーが発生したため %{resource} は保存されませんでした:"
+  activerecord:
+    errors:
+      models:
+        post:
+          attributes:
+            subject:
+              required: "が必要です"
+    models:
+      post: 投稿
+    attributes:
+      post:
+        subject_id: 教科ID
+        caption: タイトル
+        images: 画像
+        description: 説明
